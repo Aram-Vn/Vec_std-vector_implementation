@@ -1,3 +1,5 @@
+#include <iostream>
+
 template <class T>
 Vec<T>::Vec() :
 	m_size{0},

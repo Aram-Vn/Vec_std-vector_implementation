@@ -1,5 +1,5 @@
-#ifndef VEC_CPP
-#define VEC_CPP
+#ifndef VEC_DECLARATION_CPP
+#define VEC_DECLARATION_CPP
 
 #include <iostream>
 #include <limits>
@@ -56,4 +56,6 @@ private:
 template <class T>
 std::ostream& operator<<(std::ostream& os, const Vec<T>& obj);
 
-#endif //VEC_H
+#include "Vec.cpp"
+
+#endif //VEC_DECLARATION_CPP

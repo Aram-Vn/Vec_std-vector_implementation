@@ -56,6 +56,22 @@ private:
 template <class T>
 std::ostream& operator<<(std::ostream& os, const Vec<T>& obj);
 
+
+template <>
+class Vec<bool>
+{
+public:
+	Vec();
+	Vec(int new_size, bool val = false);
+	/* Vec(const std::initializer_list<bool> list); */
+
+private:
+	size_t m_size;
+	size_t m_cap;
+	bool* m_ptr;
+};
+
+
 #include "Vec.cpp"
 
 #endif //VEC_DECLARATION_CPP

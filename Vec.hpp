@@ -400,13 +400,19 @@ Vec<bool>::Vec() :
 
 Vec<bool>::Vec(int new_size, bool val)
 {
-	int ind = new_size / (sizeof(bool) * 8);
+	int ind = new_size / (sizeof(size_t) * 8);
+	
+	m_size = new_size;
+
 
 	if(ind == 0){
-		m_ptr = new bool[1]; 
+		m_ptr = new size_t[1]; 
+		m_cap = sizeof(size_t) * 8;
+	} else {
+		m_cap = ind * (sizeof(size_t) * 8);
+		m_ptr = new size_t[ind]; 
 	}
 		
-	m_ptr = new bool[ind]; 
 
 	if(val){
 		~(m_ptr[0]);
@@ -425,4 +431,88 @@ size_t Vec<bool>::Size() const
 size_t Vec<bool>::Capacity() const
 {
 	return m_cap;
+}
+
+Vec<bool>::~Vec()
+{
+	delete[] m_ptr;
+	m_size = 0;
+	m_cap = 0;
+}
+
+Vec<bool>::Vec(const Vec& other) :
+	m_size{other.m_size},
+	m_cap{other.m_cap}, 
+	m_ptr{new size_t[m_cap]} 
+{
+	int ind = m_cap / sizeof(size_t) * 8;	
+	
+	m_ptr[0] = other.m_ptr[0];
+	
+	for(int i = 1; i < ind; ++i){
+		m_ptr[i] = other.m_ptr[0];
+	}	
+}
+
+Vec<bool>::Vec(Vec&& other) noexcept :
+	m_size{other.m_size},
+	m_cap{other.m_cap}, 
+	m_ptr{other.m_ptr}
+{
+	other.m_size = 0;
+	other.m_cap = 0;
+	other.m_ptr = nullptr;
+}
+
+void Vec<bool>::realloc(size_t new_cap)
+{
+	if(new_cap == 0){
+		m_cap = (m_cap) ? 2 * m_cap : sizeof(size_t) * 8;
+	} else {
+		m_cap = new_cap;
+	}	
+
+	int ind = m_cap / (sizeof(size_t) * 8);
+
+	size_t* tmp_ptr = new size_t[ind];
+
+		for(size_t i = 0; i < m_size; ++i){
+			tmp_ptr[i] = m_ptr[i]; 
+		}
+
+	delete m_ptr;
+	m_ptr = tmp_ptr;
+}
+
+void Vec<bool>::push_back(bool val)
+{
+	if(m_size == m_cap){
+		realloc();
+	}
+
+	int ind = m_cap / (sizeof(size_t) * 8);
+	int at = m_size % (sizeof(size_t) * 8);
+
+	if(val){
+		if(bool(m_ptr[ind] & (1 << at))){
+			m_ptr[ind] ^= (1 << at);
+		}
+	} else {
+		if(!(bool(m_ptr[ind] & (1 << at)))){
+		m_ptr[ind] ^= (1 << at);
+		}
+	}
+}
+
+void Vec<bool>::pop_back()
+{
+	if(m_ptr != nullptr){
+		if(m_size != 0){
+			--m_size;
+		} else {
+			std::cout << "for pop_back\nm_size is 0" << std::endl;
+		}
+	} else {
+		std::cout << "for pop_back\nnullptr" << std::endl;
+	}
 }

@@ -14,7 +14,14 @@
 Vec is a C++ template class that provides a dynamic array implementation with various functionalities. It allows you to create, manipulate, and manage dynamic arrays efficiently.
 
 *********************************************************************
-## Public Member Functions
+# Public Member Functions
+
+- [Constructors and Destructors](#constructors-and-destructors)
+- [Assignment Operators](#assignment-operators)
+- [Accessors](#accessors)
+- [Modifiers](#modifiers)
+- [Element Access](#element-access)
+- [Output Stream Operator](#output-stream-operator)
 
 ### Constructors and Destructors
 

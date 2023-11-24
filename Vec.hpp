@@ -152,7 +152,7 @@ void Vec<T>::realloc(size_t new_cap)
 			tmp_ptr[i] = m_ptr[i]; 
 		}
 
-	delete m_ptr;
+	delete[] m_ptr;
 	m_ptr = tmp_ptr;
 }
 
@@ -491,7 +491,7 @@ void Vec<bool>::push_back(bool val)
 	}
 
 	int ind = m_cap / (sizeof(size_t) * 8);
-	int at = m_size % (sizeof(size_t) * 8) + 1;
+	int at = m_size % (sizeof(size_t) * 8);
 	size_t one = 1;
 	
 	if(val){

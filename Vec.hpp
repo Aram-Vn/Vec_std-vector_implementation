@@ -1,5 +1,3 @@
-#include <iostream>
-
 template <class T>
 Vec<T>::Vec() :
 	m_size{0},
@@ -348,6 +346,51 @@ std::ostream& operator<<(std::ostream& os, const Vec<T>& obj)
 	return os;
 }
 
+template <typename T>
+	template <typename... Args>
+		void Vec<T>::emplace_back(Args&&... args) 
+		{
+			if(m_ptr != nullptr){
+				++m_size;	
+	
+					if(m_size >= m_cap){
+						realloc();	
+					}
+
+      	  		m_ptr[m_size - 1] = T(std::forward<Args>(args)...);
+
+			} else {
+				std::cout << "for (emplace_back)\nnullptr" << std::endl;
+				exit(0);		
+    			}
+		}
+
+template <typename T>
+	template <typename... Args>
+    	void Vec<T>::emplace(int ind, Args&&... args)
+		{
+			if(m_ptr != nullptr){
+				if(ind >= 0 && ind < m_size){
+					if(m_size == m_cap){ 
+						realloc();
+					}
+	
+					for (size_t i = m_size; i > ind; --i) {
+	           			m_ptr[i] = m_ptr[i - 1];
+        			}		
+		
+					m_ptr[ind] = T(std::forward<Args>(args)...);
+					++m_size;	
+
+				} else {
+					std::cout << "in emplace function first argument must be >= 0 and less than size" << std::endl;
+					exit(0);
+				}			
+			} else {
+				std::cout << "(emplace)\nnullptr" << std::endl;
+				exit(0);
+			}
+		}
 
 Vec<bool>::Vec() :
 	m_size{0},
@@ -383,4 +426,3 @@ size_t Vec<bool>::Capacity() const
 {
 	return m_cap;
 }
-

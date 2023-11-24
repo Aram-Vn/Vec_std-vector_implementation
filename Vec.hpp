@@ -450,7 +450,7 @@ Vec<bool>::Vec(const Vec& other) :
 	m_ptr[0] = other.m_ptr[0];
 	
 	for(int i = 1; i < ind; ++i){
-		m_ptr[i] = other.m_ptr[0];
+		m_ptr[i] = other.m_ptr[i];
 	}	
 }
 
@@ -491,17 +491,20 @@ void Vec<bool>::push_back(bool val)
 	}
 
 	int ind = m_cap / (sizeof(size_t) * 8);
-	int at = m_size % (sizeof(size_t) * 8);
-
+	int at = m_size % (sizeof(size_t) * 8) + 1;
+	size_t one = 1;
+	
 	if(val){
-		if(bool(m_ptr[ind] & (1 << at))){
-			m_ptr[ind] ^= (1 << at);
+		if(bool(m_ptr[ind] & (one << at))){
+			m_ptr[ind] |= (one << at);
 		}
 	} else {
 		if(!(bool(m_ptr[ind] & (1 << at)))){
 			m_ptr[ind] ^= (1 << at);
 		}
 	}
+
+	++m_size;
 }
 
 void Vec<bool>::pop_back()

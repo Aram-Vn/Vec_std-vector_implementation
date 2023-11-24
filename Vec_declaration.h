@@ -71,6 +71,24 @@ private:
 	bool* m_ptr;
 };
 
+template <>
+class Vec<bool>
+{
+public:
+	Vec();
+	Vec(int new_size, bool val = false);
+	/* Vec(const std::initializer_list<bool> list); */
+
+public:
+	size_t Size() const;	
+	size_t Capacity() const;
+
+
+private:
+	size_t m_size;
+	size_t m_cap;
+	bool* m_ptr;
+};
 
 #include "Vec.cpp"
 

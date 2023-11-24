@@ -12,7 +12,7 @@ public:
 	Vec(); // defolt constructor
 	~Vec(); // destructor
 	Vec(std::initializer_list<T> init_list); // initializer_list constructor
-	Vec(size_t new_size, T val = 0);// parameterized constructor where new_size is Vec m_size,
+	Vec(size_t new_size, T val = T{});// parameterized constructor where new_size is Vec m_size,
 	Vec(const Vec& other); // copy constructor 
 	Vec(Vec&& other) noexcept; //move constructor
 
@@ -44,6 +44,13 @@ public:
 				type. Sizes may differ.*/
 	void clear(); //Removes all elements from the vector, leaving the container with a size of 0.
 
+
+	template <typename... Args>
+    	void emplace_back(Args&&... args);
+
+	template <typename... Args>
+    	void emplace(int ind, Args&&... args);
+	
 private:	
 	void realloc(size_t new_cap = 0); // reallocates memory, if no argument passed doubles the cap, else cap is equal to new_cap
 

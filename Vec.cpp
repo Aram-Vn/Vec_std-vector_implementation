@@ -349,23 +349,39 @@ std::ostream& operator<<(std::ostream& os, const Vec<T>& obj)
 }
 
 
-template <> 
 Vec<bool>::Vec() :
 	m_size{0},
 	m_cap{0},
 	m_ptr{nullptr}
 {}
 
-template <> 
 Vec<bool>::Vec(int new_size, bool val)
 {
-	int ind = new_size / 8;
+	int ind = new_size / (sizeof(bool) * 8);
 
 	if(ind == 0){
 		m_ptr = new bool[1]; 
 	}
 		
 	m_ptr = new bool[ind]; 
+
+	if(val){
+		~(m_ptr[0]);
+
+		for(int i = 1; i < ind; ++i){
+			~(m_ptr[i]);
+		}
+	}
+}
+
+size_t Vec<bool>::Size() const
+{
+	return m_size;
+}
+
+size_t Vec<bool>::Capacity() const
+{
+	return m_cap;
 }
 
 

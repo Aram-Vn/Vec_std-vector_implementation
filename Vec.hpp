@@ -480,7 +480,7 @@ void Vec<bool>::realloc(size_t new_cap)
 			tmp_ptr[i] = m_ptr[i]; 
 		}
 
-	delete m_ptr;
+	delete[] m_ptr;
 	m_ptr = tmp_ptr;
 }
 

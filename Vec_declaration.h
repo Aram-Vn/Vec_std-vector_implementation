@@ -70,16 +70,23 @@ public:
 	Vec();
 	Vec(int new_size, bool val = false);
 	/* Vec(const std::initializer_list<bool> list); */
+	~Vec();
+	Vec(const Vec& other);
+	Vec(Vec&& other) noexcept;
 
 public:
 	size_t Size() const;	
 	size_t Capacity() const;
+	void push_back(bool val);
+	void pop_back();		     
 
+private:
+	void realloc(size_t new_cap = 0);
 
 private:
 	size_t m_size;
 	size_t m_cap;
-	bool* m_ptr;
+	size_t* m_ptr;
 };
 
 #include "Vec.hpp"

@@ -499,7 +499,7 @@ void Vec<bool>::push_back(bool val)
 		}
 	} else {
 		if(!(bool(m_ptr[ind] & (1 << at)))){
-		m_ptr[ind] ^= (1 << at);
+			m_ptr[ind] ^= (1 << at);
 		}
 	}
 }

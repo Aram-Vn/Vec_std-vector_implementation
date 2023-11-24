@@ -45,11 +45,13 @@ public:
 	void clear(); //Removes all elements from the vector, leaving the container with a size of 0.
 
 
-	template <typename... Args>
-    	void emplace_back(Args&&... args);
+	template <typename... Args>         //Appends a new element to the end of the container. 
+    	void emplace_back(Args&&... args);  //The arguments args... are forwarded to the constructor as std::forward<Args>(args)...
+     					   
 
-	template <typename... Args>
-    	void emplace(int ind, Args&&... args);
+
+	template <typename... Args>             //Appends a new element at the given index(ind) the end of the container. 
+    	void emplace(int ind, Args&&... args);  //The arguments args... are forwarded to the constructor as std::forward<Args>(args)...
 	
 private:	
 	void realloc(size_t new_cap = 0); // reallocates memory, if no argument passed doubles the cap, else cap is equal to new_cap
@@ -60,6 +62,8 @@ private:
 	T* m_ptr;
 };
 
+//specialization of Vec for the type bool.
+//still working on it!!!
 template <class T>
 std::ostream& operator<<(std::ostream& os, const Vec<T>& obj);
 

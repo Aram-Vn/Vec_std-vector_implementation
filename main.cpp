@@ -5,4 +5,6 @@ int main(){
  Vec<int> v = {1, 2, 3};
  std::cout << v << std::endl;
 
+ Vec<int> v2 = {1, 2, 3};
+ std::cout << v2 << std::endl;
 }

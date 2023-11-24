@@ -75,6 +75,6 @@ private:
 	bool* m_ptr;
 };
 
-#include "Vec.cpp"
+#include "Vec.hpp"
 
 #endif //VEC_DECLARATION_CPP

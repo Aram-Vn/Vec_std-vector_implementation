@@ -45,12 +45,12 @@ public:
 	void clear(); //Removes all elements from the vector, leaving the container with a size of 0.
 
 
-	template <typename... Args>         //Appends a new element to the end of the container. 
+	template <typename... Args>         //Adds an element constructed in place to the end of the vector
     	void emplace_back(Args&&... args);  //The arguments args... are forwarded to the constructor as std::forward<Args>(args)...
      					   
 
 
-	template <typename... Args>             //Appends a new element at the given index(ind) the end of the container. 
+	template <typename... Args>             //Inserts an element constructed in place into the vector at a specified position(ind).
     	void emplace(int ind, Args&&... args);  //The arguments args... are forwarded to the constructor as std::forward<Args>(args)...
 	
 private:	

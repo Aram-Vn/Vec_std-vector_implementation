@@ -16,7 +16,7 @@ public:
 	Vec(const Vec& other); // copy constructor 
 	Vec(Vec&& other) noexcept; //move constructor
 
-	T& operator[](long long ind) const; //subscript operator overload
+	T& operator[](int ind) const; //subscript operator overload
 	Vec& operator=(const Vec& other); // copy assignment operator overload
 	Vec& operator=(Vec&& other) noexcept; // move assignment operator overload
 
@@ -70,39 +70,16 @@ std::ostream& operator<<(std::ostream& os, const Vec<T>& obj);
 
 std::ostream& operator<<(std::ostream& os, const Vec<bool>& other) noexcept;
 
-enum { BITCOUNT = (sizeof(size_t) * 8) };
-
 template <>
 class Vec<bool>
 {
 public:
-	//nested class for handling referance
-	class reference
-	{
-	public:
-		reference(size_t* ptr1, size_t index);		
-		reference& operator=(const reference& obj);
-		reference& operator=(bool flag);
-	
-		operator bool() const;		
-	private:
-		void flip();		
-
-	private:
-		size_t* ptr;
-		size_t index;
-		bool flag;
-	};
-
-public:
 	Vec();
-	Vec(int new_size);
+	Vec(int new_size, bool val = false);
 	/* Vec(const std::initializer_list<bool> list); */
 	~Vec();
 	Vec(const Vec& other);
 	Vec(Vec&& other) noexcept;
-
-	reference operator[](size_t index);
 
 public:
 	size_t Size() const;	

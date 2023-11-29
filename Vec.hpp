@@ -59,7 +59,7 @@ Vec<T>::Vec(Vec&& other) noexcept :
 }
 
 template <class T>
-T& Vec<T>::operator[](int ind) const
+T& Vec<T>::operator[](long long ind) const
 {
 	if(m_ptr == nullptr){
 		std::cout << "for[]\nnullptr" << std::endl;
@@ -132,7 +132,7 @@ size_t Vec<T>::Capacity() const
 }	
 
 template <class T>
-bool Vec<T>::Empty() const
+bool Vec<T>::Empty() 
 {
 	return m_size = 0;
 }
@@ -339,7 +339,7 @@ void Vec<T>::clear()
 template <class T>
 std::ostream& operator<<(std::ostream& os, const Vec<T>& obj)
 {
-	for(int i = 0; i < obj.Size(); ++i){
+	for(size_t i = 0; i < obj.Size(); ++i){
 		os << obj[i] << " ";   
 	}
 	
@@ -392,13 +392,19 @@ template <typename T>
 			}
 		}
 
+//***********************************************************
+//************************* bool ****************************
+//***********************************************************
+
 Vec<bool>::Vec() :
 	m_size{0},
-	m_cap{0},
-	m_ptr{nullptr}
-{}
+	m_cap{sizeof(size_t) * 8}
+{
+	m_ptr = new size_t[1];
+	m_ptr[0] = 0; 
+}
 
-Vec<bool>::Vec(int new_size, bool val)
+Vec<bool>::Vec(int new_size)
 {
 	int ind = new_size / (sizeof(size_t) * 8);
 	
@@ -406,21 +412,17 @@ Vec<bool>::Vec(int new_size, bool val)
 
 
 	if(ind == 0){
-		m_ptr = new size_t[1]; 
+		m_ptr = new size_t[1] { 0 }; 
 		m_cap = sizeof(size_t) * 8;
 	} else {
 		m_cap = ind * (sizeof(size_t) * 8);
-		m_ptr = new size_t[ind]; 
+		m_ptr = new size_t[ind];
+	}
+	
+	for(int i = 0; i < ind; ++i){
+		m_ptr[i] = 0;
 	}
 		
-
-	if(val){
-		~(m_ptr[0]);
-
-		for(int i = 1; i < ind; ++i){
-			~(m_ptr[i]);
-		}
-	}
 }
 
 size_t Vec<bool>::Size() const
@@ -466,6 +468,7 @@ Vec<bool>::Vec(Vec&& other) noexcept :
 
 void Vec<bool>::realloc(size_t new_cap)
 {
+
 	if(new_cap == 0){
 		m_cap = (m_cap) ? 2 * m_cap : sizeof(size_t) * 8;
 	} else {
@@ -476,8 +479,8 @@ void Vec<bool>::realloc(size_t new_cap)
 
 	size_t* tmp_ptr = new size_t[ind];
 
-		for(size_t i = 0; i < m_size; ++i){
-			tmp_ptr[i] = m_ptr[i]; 
+		for(int i = 0; i < ind; ++i){
+			tmp_ptr[i] = m_ptr[i];
 		}
 
 	delete[] m_ptr;
@@ -490,18 +493,15 @@ void Vec<bool>::push_back(bool val)
 		realloc();
 	}
 
-	int ind = m_cap / (sizeof(size_t) * 8);
+	int ind = m_size / (sizeof(size_t) * 8);
 	int at = m_size % (sizeof(size_t) * 8);
 	size_t one = 1;
 	
 	if(val){
-		if(bool(m_ptr[ind] & (one << at))){
-			m_ptr[ind] |= (one << at);
-		}
+		m_ptr[ind] |= (one << at);
 	} else {
-		if(!(bool(m_ptr[ind] & (1 << at)))){
-			m_ptr[ind] ^= (1 << at);
-		}
+		++m_size;
+		return;
 	}
 
 	++m_size;
@@ -518,4 +518,64 @@ void Vec<bool>::pop_back()
 	} else {
 		std::cout << "for pop_back\nnullptr" << std::endl;
 	}
+}
+
+std::ostream& operator<<(std::ostream& os, const Vec<bool>& other) noexcept
+{
+		const auto size = other.Size();
+		const auto BitSize = sizeof(size_t) * 8;
+		size_t one = 1;
+
+        for (size_t i = 0; i < size; ++i)
+        {
+			os << bool((other.m_ptr[i / BitSize] & (one << (i % BitSize)) ));
+
+            if (i + 1 != size){
+                os << ", ";
+			}
+        }
+        return os;
+}
+
+
+Vec<bool>::reference Vec<bool>::operator[](size_t index)
+{
+	return Vec<bool>::reference(m_ptr, index);
+}
+
+
+Vec<bool>::reference::reference(size_t* ptr1, size_t index1) :
+	ptr(ptr1), index(index1)
+{
+	int bitcount = sizeof(size_t) * 8;
+
+	flag = ptr[index / bitcount] & ( 1 << index % bitcount);
+}
+
+Vec<bool>::reference& Vec<bool>::reference::operator=(const reference& obj)
+{
+	if(this != &obj){
+		flip();	
+	}
+
+	return *this;	
+}
+
+Vec<bool>::reference& Vec<bool>::reference::operator=(bool flag)
+{
+	if(this->flag != flag){
+		flip();
+	}
+ 
+	return *this;
+}
+
+Vec<bool>::reference::operator bool() const
+{
+	return flag;
+}
+
+void Vec<bool>::reference::flip()
+{
+	this->ptr[index / BITCOUNT] ^= 1 << (index % BITCOUNT);	
 }

@@ -1,0 +1,9 @@
+# Ignore everything
+*
+
+# Allow specific files
+!Vec_declaration.h
+!README.md
+!main.cpp
+!Vec.hpp
+!.gitignore

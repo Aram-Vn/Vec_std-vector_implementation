@@ -95,7 +95,7 @@ Vec is a C++ template class that provides a dynamic array implementation with va
   ### Accessors
 - `size_t Size() const`:	 Returns the current size of the vector(amount of bits).
 -	`size_t Capacity() const`:  Returns the current capacity of the vector(amount of bits).
-- `reference operator[](size_t index)`: Subscript operator overload, whoch works with help of nested class reference
+- `reference operator[](size_t index)`: Subscript operator overload, which works with help of nested class reference
   
 
 

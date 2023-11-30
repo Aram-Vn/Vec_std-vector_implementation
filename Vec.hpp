@@ -51,7 +51,7 @@ template <class T>
 Vec<T>::Vec(Vec&& other) noexcept :
 	m_size{other.m_size},
 	m_cap{other.m_cap}, 
-	m_ptr{new int[m_cap]} 
+	m_ptr{other.m_ptr} 
 {
 	other.m_size = 0;
 	other.m_cap = 0;
@@ -134,7 +134,7 @@ size_t Vec<T>::Capacity() const
 template <class T>
 bool Vec<T>::Empty() 
 {
-	return m_size = 0;
+	return m_size == 0;
 }
 
 template <class T>

@@ -72,5 +72,26 @@ Vec is a C++ template class that provides a dynamic array implementation with va
 
 - `std::ostream& operator<<(std::ostream& os, const Vec<T>& obj)`: Overloads the << operator for easy printing.
 
+*************************************************************************
+
+# Vec<bool> Template Class
+
+`Vec<bool>` is a specialized template class for managing boolean values efficiently using a custom vector implementation. This template is designed to handle the unique challenges associated with boolean values in C++.
+
+## Features
+
+- **Efficient Storage**: The class utilizes an internal representation using `size_t` to optimize storage for boolean values.
+- **Reference Handling**: The nested `reference` class provides a convenient interface for working with individual boolean values.
+- **Initializer List Support**: The class supports initialization using `std::initializer_list<bool>` for easy initialization of boolean vectors.
+
+## Usage
+
+### Creating a Vector
+
+```cpp
+// Example: Creating a Vec<bool> vector
+Vec<bool> boolVector;
+
+
 
 

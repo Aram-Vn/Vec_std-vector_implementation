@@ -396,9 +396,12 @@ template <typename T>
 //************************* bool ****************************
 //***********************************************************
 
+//BITCOUNT is enum const equal to (sizeof(size_t) * 8) 
+
+
 Vec<bool>::Vec() :
 	m_size{0},
-	m_cap{sizeof(size_t) * 8}
+	m_cap{BITCOUNT}
 {
 	m_ptr = new size_t[1];
 	m_ptr[0] = 0; 
@@ -406,16 +409,16 @@ Vec<bool>::Vec() :
 
 Vec<bool>::Vec(int new_size)
 {
-	int ind = new_size / (sizeof(size_t) * 8);
+	int ind = new_size / BITCOUNT;
 	
 	m_size = new_size;
 
 
 	if(ind == 0){
 		m_ptr = new size_t[1] { 0 }; 
-		m_cap = sizeof(size_t) * 8;
+		m_cap = BITCOUNT;
 	} else {
-		m_cap = ind * (sizeof(size_t) * 8);
+		m_cap = ind * BITCOUNT;
 		m_ptr = new size_t[ind];
 	}
 	
@@ -447,7 +450,7 @@ Vec<bool>::Vec(const Vec& other) :
 	m_cap{other.m_cap}, 
 	m_ptr{new size_t[m_cap]} 
 {
-	int ind = m_cap / sizeof(size_t) * 8;	
+	int ind = m_cap / BITCOUNT;	
 	
 	m_ptr[0] = other.m_ptr[0];
 	
@@ -470,12 +473,12 @@ void Vec<bool>::realloc(size_t new_cap)
 {
 
 	if(new_cap == 0){
-		m_cap = (m_cap) ? 2 * m_cap : sizeof(size_t) * 8;
+		m_cap = (m_cap) ? 2 * m_cap : BITCOUNT;
 	} else {
 		m_cap = new_cap;
 	}	
 
-	int ind = m_cap / (sizeof(size_t) * 8);
+	int ind = m_cap / BITCOUNT;
 
 	size_t* tmp_ptr = new size_t[ind];
 
@@ -493,13 +496,17 @@ void Vec<bool>::push_back(bool val)
 		realloc();
 	}
 
-	int ind = m_size / (sizeof(size_t) * 8);
-	int at = m_size % (sizeof(size_t) * 8);
+	int ind = m_size / BITCOUNT;
+	int at = m_size % BITCOUNT;
 	size_t one = 1;
 	
 	if(val){
 		m_ptr[ind] |= (one << at);
 	} else {
+		if(bool( m_ptr[ind] & (one << at)) ){
+			m_ptr[ind] ^= (one << at);
+		}
+
 		++m_size;
 		return;
 	}
@@ -522,15 +529,13 @@ void Vec<bool>::pop_back()
 
 std::ostream& operator<<(std::ostream& os, const Vec<bool>& other) noexcept
 {
-		const auto size = other.Size();
-		const auto BitSize = sizeof(size_t) * 8;
 		size_t one = 1;
 
-        for (size_t i = 0; i < size; ++i)
+        for (size_t i = 0; i < other.Size(); ++i)
         {
-			os << bool((other.m_ptr[i / BitSize] & (one << (i % BitSize)) ));
+			os << bool((other.m_ptr[i / BITCOUNT] & (one << (i % BITCOUNT)) ));
 
-            if (i + 1 != size){
+            if (i + 1 != other.Size()){
                 os << ", ";
 			}
         }
@@ -547,9 +552,35 @@ Vec<bool>::reference Vec<bool>::operator[](size_t index)
 Vec<bool>::reference::reference(size_t* ptr1, size_t index1) :
 	ptr(ptr1), index(index1)
 {
-	int bitcount = sizeof(size_t) * 8;
+	flag = ptr[index / BITCOUNT] & ( 1 << index % BITCOUNT);
+}
 
-	flag = ptr[index / bitcount] & ( 1 << index % bitcount);
+Vec<bool>::reference::reference(const reference& other) :
+	index{other.index},	
+	flag{other.flag}
+{
+
+	size_t amount = index / BITCOUNT;
+	ptr = new size_t[amount];
+
+	for(size_t i = 0; i <= (index / BITCOUNT); ++i){
+		ptr[i] = other.ptr[i]; 
+	}
+}
+
+Vec<bool>::reference::reference(reference&& other) :
+	index{other.index},
+	flag{other.flag}   
+{
+	size_t amount = index / BITCOUNT;
+	ptr = new size_t[amount];
+
+	for(size_t i = 0; i <= (index / BITCOUNT); ++i){
+		ptr[i] = other.ptr[i]; 
+	}
+
+	delete[] other.ptr;
+	other.index = -1;	
 }
 
 Vec<bool>::reference& Vec<bool>::reference::operator=(const reference& obj)
@@ -570,10 +601,22 @@ Vec<bool>::reference& Vec<bool>::reference::operator=(bool flag)
 	return *this;
 }
 
+Vec<bool>::reference& Vec<bool>::reference::operator=(reference&& other)
+{
+	if(this != &other){
+		flip();
+	}
+	
+	delete[] other.ptr;
+	
+	return *this;	
+}
+
 Vec<bool>::reference::operator bool() const
 {
 	return flag;
 }
+
 
 void Vec<bool>::reference::flip()
 {

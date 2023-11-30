@@ -80,9 +80,13 @@ public:
 	class reference
 	{
 	public:
-		reference(size_t* ptr1, size_t index);		
+		reference(size_t* ptr1, size_t index);
+		reference(const reference& other);
+		reference(reference&& other);
+		
 		reference& operator=(const reference& obj);
 		reference& operator=(bool flag);
+		reference& operator=(reference&& other);
 	
 		operator bool() const;		
 	private:

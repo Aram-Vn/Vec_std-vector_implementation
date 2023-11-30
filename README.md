@@ -31,8 +31,6 @@ Vec is a C++ template class that provides a dynamic array implementation with va
 - `Vec(size_t new_size, T val = T{})`: Parameterized constructor with an initial size and optional default value.
 - `Vec(const Vec& other)`: Copy constructor.
 - `Vec(Vec&& other) noexcept`: Move constructor.
-- `Vec(const Vec& other)`: Copy constructor.
-- `Vec(Vec&& other) noexcept`: Move constructor.
 
 ### Assignment Operators
 
@@ -84,13 +82,19 @@ Vec is a C++ template class that provides a dynamic array implementation with va
 - **Reference Handling**: The nested `reference` class provides a convenient interface for working with individual boolean values.
 - **Initializer List Support**: The class supports initialization using `std::initializer_list<bool>` for easy initialization of boolean vectors.
 
-## Usage
+# Public Member Functions for Vec<bool>
 
-### Creating a Vector
+### Constructors and Destructors (Vec<bool>)
+- `Vec()`: Default constructor.
+- `Vec(int new_size)`: Parameterized constructor with an initial size 
+- `Vec(const std::initializer_list<bool>& list)`: Initializer_list constructor.
+- `~Vec()`: Destructor.
+- `Vec(const Vec& other)`: Copy constructor.
+- `Vec(Vec&& other) noexcept`: Move constructor.
 
-```cpp
-// Example: Creating a Vec<bool> vector
-Vec<bool> boolVector;
+
+
+
 
 
 

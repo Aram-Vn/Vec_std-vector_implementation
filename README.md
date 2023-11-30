@@ -92,6 +92,12 @@ Vec is a C++ template class that provides a dynamic array implementation with va
 - `Vec(const Vec& other)`: Copy constructor.
 - `Vec(Vec&& other) noexcept`: Move constructor.
 
+  ### Accessors
+- `size_t Size() const`:	 Returns the current size of the vector(amount of bits).
+-	`size_t Capacity() const`:  Returns the current capacity of the vector(amount of bits).
+- `reference operator[](size_t index)`: Subscript operator overload, whoch works with help of nested class reference
+  
+
 
 
 

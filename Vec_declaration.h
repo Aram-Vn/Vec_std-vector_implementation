@@ -62,19 +62,14 @@ private:
 	T* m_ptr;
 };
 
-//specialization of Vec for the type bool.
-//still working on it!!!
 template <class T>
 std::ostream& operator<<(std::ostream& os, const Vec<T>& obj);
 
-
-std::ostream& operator<<(std::ostream& os, const Vec<bool>& other) noexcept;
-
-
-
+//for holding amount of bits for size_t
 enum { BITCOUNT = (sizeof(size_t) * 8) };
 
-//line 402
+//specialization of Vec for the type bool.
+//line 402 in Vec.hpp
 template <>
 class Vec<bool>
 {
@@ -127,6 +122,8 @@ private:
 	size_t m_cap;
 	size_t* m_ptr;
 };
+
+std::ostream& operator<<(std::ostream& os, const Vec<bool>& other) noexcept;
 
 
 #include "Vec.hpp"

@@ -428,6 +428,16 @@ Vec<bool>::Vec(int new_size)
 		
 }
 
+Vec<bool>::Vec(const std::initializer_list<bool>& list) : 
+	m_size(0), 
+	m_cap{BITCOUNT}, 
+	m_ptr{new size_t[1]} 
+{
+    for (const bool& val : list) {
+        push_back(val);
+    }
+}
+
 size_t Vec<bool>::Size() const
 {
 	return m_size;
@@ -545,7 +555,19 @@ std::ostream& operator<<(std::ostream& os, const Vec<bool>& other) noexcept
 
 Vec<bool>::reference Vec<bool>::operator[](size_t index)
 {
-	return Vec<bool>::reference(m_ptr, index);
+	if(m_ptr != nullptr){
+		if(index >= 0 && index < m_size){
+			return Vec<bool>::reference(m_ptr, index);
+		} else {
+			std::cout << "in [" << index << "] for Vec<bool>" << std::endl;
+			std::cout << "index must be >= 0 && < Vec.Size()" << std::endl;
+			exit(0);
+		}
+	} else {
+		std::cout << "in [index] for Vec<bool>" << std::endl;
+		std::cout << "nullptr" << std::endl;
+		exit(0);
+	}
 }
 
 

@@ -6,7 +6,7 @@ int main(){
  Vec<int> v = {1, 2, 3};
  std::cout << v << std::endl;
   
- Vec<bool> b;
+ Vec<bool> b = {1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0 , 0,0 , 0};
 
 	for(int i = 0; i < 125; ++i){
 		if(i % 2 == 0) {
@@ -37,5 +37,6 @@ int main(){
  std::cout << b[7] << std::endl;
  std::cout << b[8] << std::endl;
  std::cout << b[9] << std::endl;
+ std::cout << b[999] << std::endl;
 
 }

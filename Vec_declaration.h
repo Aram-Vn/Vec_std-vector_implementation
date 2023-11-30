@@ -70,8 +70,11 @@ std::ostream& operator<<(std::ostream& os, const Vec<T>& obj);
 
 std::ostream& operator<<(std::ostream& os, const Vec<bool>& other) noexcept;
 
+
+
 enum { BITCOUNT = (sizeof(size_t) * 8) };
 
+//line 402
 template <>
 class Vec<bool>
 {
@@ -101,7 +104,7 @@ public:
 public:
 	Vec();
 	Vec(int new_size);
-	/* Vec(const std::initializer_list<bool> list); */
+	Vec(const std::initializer_list<bool>& list);
 	~Vec();
 	Vec(const Vec& other);
 	Vec(Vec&& other) noexcept;

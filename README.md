@@ -72,7 +72,7 @@ Vec is a C++ template class that provides a dynamic array implementation with va
 
 *************************************************************************
 
-# Vec Template bool specialization Class
+# Vec: bool specialization Class
 
 `Vec<bool>` is a specialized template class for managing boolean values efficiently using a custom vector implementation. This template is designed to handle the unique challenges associated with boolean values in C++.
 

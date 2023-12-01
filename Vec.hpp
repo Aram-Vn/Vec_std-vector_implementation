@@ -401,7 +401,7 @@ template <typename T>
 
 Vec<bool>::Vec() :
 	m_size{0},
-	m_cap{BITCOUNT}
+	m_cap(BITCOUNT)
 {
 	m_ptr = new size_t[1];
 	m_ptr[0] = 0; 

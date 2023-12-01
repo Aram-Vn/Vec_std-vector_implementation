@@ -65,8 +65,10 @@ private:
 template <class T>
 std::ostream& operator<<(std::ostream& os, const Vec<T>& obj);
 
-//for holding amount of bits for size_t
+
+//for holding amount of bits of size_t( Vec<bool> )
 enum { BITCOUNT = (sizeof(size_t) * 8) };
+
 
 //specialization of Vec for the type bool.
 //line 402 in Vec.hpp

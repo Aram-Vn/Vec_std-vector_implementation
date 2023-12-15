@@ -43,6 +43,21 @@ typename Vec<T>::random_access_itr Vec<T>::random_access_itr::operator++ (int)
 }
 
 template <class T>
+typename Vec<T>::random_access_itr Vec<T>::random_access_itr::operator-- ()
+{
+	--ptr;
+	return *this;
+}
+
+template <class T>
+typename Vec<T>::random_access_itr Vec<T>::random_access_itr::operator-- (int)
+{
+	random_access_itr tmp = *this;
+	--ptr;
+	return *this;
+}
+
+template <class T>
 typename Vec<T>::random_access_itr Vec<T>::random_access_itr::operator+ (const int n)
 {
 	random_access_itr tmp = *this;
@@ -88,15 +103,51 @@ typename Vec<T>::random_access_itr& Vec<T>::random_access_itr::operator-= (const
 }
 
 template <class T>
-bool Vec<T>::random_access_itr::operator== (const random_access_itr& other)
+bool Vec<T>::random_access_itr::operator== (const random_access_itr& other) const
 {
 	return this->ptr == other.ptr;
 }
 
 template <class T>
-bool Vec<T>::random_access_itr::operator!= (const random_access_itr& other)
+bool Vec<T>::random_access_itr::operator!= (const random_access_itr& other) const 
 {
 	return !(this->ptr == other.ptr);
+}
+
+template <class T>
+bool Vec<T>::random_access_itr::operator> (const random_access_itr& other) const
+{
+	return (this->ptr > other.ptr);
+}
+
+template <class T>
+bool Vec<T>::random_access_itr::operator< (const random_access_itr& other) const
+{
+	return (this->ptr < other.ptr);
+}
+
+template <class T>
+bool Vec<T>::random_access_itr::operator>= (const random_access_itr& other) const
+{
+	return (this->ptr >= other.ptr);
+}
+
+template <class T>
+bool Vec<T>::random_access_itr::operator<= (const random_access_itr& other) const
+{
+	return (this->ptr <= other.ptr);
+}
+
+template <class T>
+T& Vec<T>::random_access_itr::operator[] (const size_t n) 
+{
+	return *(ptr + n);
+}
+
+template <class T>
+const T& Vec<T>::random_access_itr::operator[] (const size_t n) const 
+{
+    return *(this + n);
 }
 
 template <class T>

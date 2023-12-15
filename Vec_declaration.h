@@ -20,12 +20,20 @@ public:
 		T* operator-> (); // 
 		random_access_itr& operator++ (); //
 		random_access_itr operator++ (int); //
+		random_access_itr operator-- (); //
+		random_access_itr operator-- (int); //
 		random_access_itr operator+ (const int n); // 
 		random_access_itr operator- (const int n); //
 		random_access_itr& operator+= (const int n); //
 		random_access_itr& operator-= (const int n); // 
-		bool operator== (const random_access_itr& other);
-		bool operator!= (const random_access_itr& other);
+		bool operator== (const random_access_itr& other) const; //
+		bool operator!= (const random_access_itr& other) const; //
+		bool operator> (const random_access_itr& other) const; //
+		bool operator< (const random_access_itr& other) const; //
+		bool operator>= (const random_access_itr& other) const; //
+		bool operator<= (const random_access_itr& other) const; //
+		T&  operator[] (const size_t n);
+		const T& operator[] (const size_t n) const;
 
 	private:
 		T* ptr;

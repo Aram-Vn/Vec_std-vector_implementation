@@ -1,4 +1,117 @@
 template <class T>
+Vec<T>::random_access_itr::random_access_itr() : 
+	ptr(nullptr) 
+{}
+
+template <class T>
+Vec<T>::random_access_itr::random_access_itr(T* new_ptr) :
+	ptr(new_ptr)
+{}
+
+template <class T>
+typename Vec<T>::random_access_itr& Vec<T>::random_access_itr::operator= (const random_access_itr& other)
+{
+	this->ptr = other.ptr;
+	return *this;
+}
+
+template <class T>
+T& Vec<T>::random_access_itr::operator* ()
+{
+	return *ptr;
+}
+
+template <class T>
+T* Vec<T>::random_access_itr::operator-> ()
+{
+	return ptr;
+}
+
+template <class T>
+typename Vec<T>::random_access_itr& Vec<T>::random_access_itr::operator++ () 
+{
+	++ptr;
+	return *this;	
+}
+
+template <class T>
+typename Vec<T>::random_access_itr Vec<T>::random_access_itr::operator++ (int)
+{
+	random_access_itr tmp = *this;
+	++ptr;
+	return tmp; 
+}
+
+template <class T>
+typename Vec<T>::random_access_itr Vec<T>::random_access_itr::operator+ (const int n)
+{
+	random_access_itr tmp = *this;
+
+	for (size_t i = 0; i < n; i++)
+	{
+		++tmp.ptr;
+	}
+
+	return tmp;
+}
+
+template <class T>
+typename Vec<T>::random_access_itr Vec<T>::random_access_itr::operator- (const int n)
+{
+	random_access_itr tmp = *this;
+
+	for (size_t i = 0; i < n; i++)
+	{
+		--tmp.ptr;
+	}
+
+	return tmp;
+}
+template <class T>
+typename Vec<T>::random_access_itr& Vec<T>::random_access_itr::operator+= (const int n)
+{
+	for (int i = 0; i < n; ++i) {
+        ++this->ptr;
+    }
+
+    return *this;
+}
+
+template <class T>
+typename Vec<T>::random_access_itr& Vec<T>::random_access_itr::operator-= (const int n)
+{
+	for (int i = 0; i < n; ++i) {
+        --this->ptr;
+    }
+
+    return *this;
+}
+
+template <class T>
+bool Vec<T>::random_access_itr::operator== (const random_access_itr& other)
+{
+	return this->ptr == other.ptr;
+}
+
+template <class T>
+bool Vec<T>::random_access_itr::operator!= (const random_access_itr& other)
+{
+	return !(this->ptr == other.ptr);
+}
+
+template <class T>
+typename Vec<T>::r_itr Vec<T>::begin()
+{
+	return r_itr(this->data());
+}
+
+template <class T>
+typename Vec<T>::r_itr Vec<T>::end()
+{
+	return r_itr(this->data() + this->Size());
+}
+
+template <class T>
 Vec<T>::Vec() :
 	m_size{0},
 	m_cap{0},

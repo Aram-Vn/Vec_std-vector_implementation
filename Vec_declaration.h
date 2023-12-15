@@ -9,6 +9,34 @@ template <class T>
 class Vec
 {
 public:
+	class random_access_itr
+	{
+	public:
+		random_access_itr(); //
+		random_access_itr(T* new_ptr); //
+
+		random_access_itr& operator= (const random_access_itr& other); //
+		T& operator* (); //
+		T* operator-> (); // 
+		random_access_itr& operator++ (); //
+		random_access_itr operator++ (int); //
+		random_access_itr operator+ (const int n); // 
+		random_access_itr operator- (const int n); //
+		random_access_itr& operator+= (const int n); //
+		random_access_itr& operator-= (const int n); // 
+		bool operator== (const random_access_itr& other);
+		bool operator!= (const random_access_itr& other);
+
+	private:
+		T* ptr;
+	};
+
+public:
+	using r_itr = random_access_itr;
+	r_itr begin();
+	r_itr end();
+
+public:
 	Vec(); // defolt constructor
 	~Vec(); // destructor
 	Vec(std::initializer_list<T> init_list); // initializer_list constructor

@@ -32,8 +32,8 @@ public:
 		bool operator< (const random_access_itr& other) const; //
 		bool operator>= (const random_access_itr& other) const; //
 		bool operator<= (const random_access_itr& other) const; //
-		T&  operator[] (const size_t n);
-		const T& operator[] (const size_t n) const;
+		T&  operator[] (const size_t n); //
+		//const T& operator[] (const size_t n) const;
 
 	private:
 		T* ptr;

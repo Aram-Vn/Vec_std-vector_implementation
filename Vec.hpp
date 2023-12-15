@@ -144,11 +144,13 @@ T& Vec<T>::random_access_itr::operator[] (const size_t n)
 	return *(ptr + n);
 }
 
+/*
 template <class T>
 const T& Vec<T>::random_access_itr::operator[] (const size_t n) const 
 {
     return *(this + n);
 }
+*/
 
 template <class T>
 typename Vec<T>::r_itr Vec<T>::begin()

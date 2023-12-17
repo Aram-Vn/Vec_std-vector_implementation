@@ -1,3 +1,5 @@
+/*----------------------------------const_iterator-----------------------------------------*/
+
 template <class T>
 Vec<T>::const_iterator::const_iterator() :
 	ptr(nullptr)
@@ -310,6 +312,8 @@ typename Vec<T>::itr Vec<T>::end()
 {
 	return itr(this->data() + this->Size());
 }
+
+/*----------------------------------Vec-----------------------------------------*/
 
 template <class T>
 Vec<T>::Vec() :

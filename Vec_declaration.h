@@ -9,6 +9,48 @@ template <class T>
 class Vec
 {
 public:
+	class const_iterator
+	{
+	public:
+		const_iterator(); //
+		const_iterator(const T* ptr1); //
+
+		const_iterator& operator= (const const_iterator& other);
+
+		const T& operator* () const;
+		const T* operator-> () const;
+
+		const_iterator& operator++ ();
+		const_iterator operator++ (int);
+
+		const_iterator& operator-- ();
+		const_iterator operator-- (int);
+
+		const_iterator operator+ (const int n) const; 
+		const_iterator operator- (const int n) const;
+
+		const_iterator& operator+= (const int n);
+		const_iterator& operator-= (const int n);
+
+		bool operator== (const const_iterator& other) const;
+		bool operator!= (const const_iterator& other) const;
+		bool operator> (const const_iterator& other) const;
+		bool operator< (const const_iterator& other) const;
+		bool operator>= (const const_iterator& other) const;
+		bool operator<= (const const_iterator& other) const;
+
+		const T& operator[] (int i) const;
+
+	private:
+		T* ptr;
+	};
+
+public:
+	using const_itr = const_iterator;
+	const const_itr c_begin() const;
+	const const_itr c_end() const;
+
+public:
 	class random_access_itr
 	{
 	public:
@@ -16,33 +58,43 @@ public:
 		random_access_itr(T* new_ptr); //
 
 		random_access_itr& operator= (const random_access_itr& other); //
+		
 		T& operator* (); //
+		const T& operator* () const;
+
 		T* operator-> (); // 
+		const T& operator-> () const;
+
 		random_access_itr& operator++ (); //
 		random_access_itr operator++ (int); //
-		random_access_itr operator-- (); //
+
+		random_access_itr& operator-- (); //
 		random_access_itr operator-- (int); //
+
 		random_access_itr operator+ (const int n); // 
 		random_access_itr operator- (const int n); //
+
 		random_access_itr& operator+= (const int n); //
 		random_access_itr& operator-= (const int n); // 
+
 		bool operator== (const random_access_itr& other) const; //
-		bool operator!= (const random_access_itr& other) const; //
+		bool operator!= (const random_access_itr& other) const;//
 		bool operator> (const random_access_itr& other) const; //
 		bool operator< (const random_access_itr& other) const; //
 		bool operator>= (const random_access_itr& other) const; //
 		bool operator<= (const random_access_itr& other) const; //
+
 		T&  operator[] (const size_t n); //
-		//const T& operator[] (const size_t n) const;
+
 
 	private:
 		T* ptr;
 	};
 
 public:
-	using r_itr = random_access_itr;
-	r_itr begin();
-	r_itr end();
+	using itr = random_access_itr;
+	itr begin();
+	itr end();
 
 public:
 	Vec(); // defolt constructor

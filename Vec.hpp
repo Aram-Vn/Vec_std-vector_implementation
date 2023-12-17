@@ -1,4 +1,49 @@
 template <class T>
+Vec<T>::const_iterator::const_iterator() :
+	ptr(nullptr)
+{}
+
+template <class T>
+Vec<T>::const_iterator::const_iterator(const T* ptr1) :
+	ptr(const_cast<T*>(ptr1))
+{}
+
+template <class T>
+typename Vec<T>::const_iterator& Vec<T>::const_iterator::operator= (const const_iterator& other)
+{
+    this->ptr = other.ptr;
+    return *this;
+}
+
+template <class T>
+const T& Vec<T>::const_iterator::operator* () const 
+{
+	return *ptr;
+}
+
+template <class T>
+const T* Vec<T>::const_iterator::operator-> () const 
+{
+	return ptr;
+}
+
+template <class T>
+typename Vec<T>::const_iterator& Vec<T>::const_iterator::operator++ () 
+{
+	++ptr;
+	return *this;
+}
+
+template <class T>
+typename Vec<T>::const_iterator Vec<T>::const_iterator::operator++ (int)
+{
+	
+}
+
+
+/*----------------------------------random_access_itr-----------------------------------------*/
+
+template <class T>
 Vec<T>::random_access_itr::random_access_itr() : 
 	ptr(nullptr) 
 {}
@@ -43,7 +88,7 @@ typename Vec<T>::random_access_itr Vec<T>::random_access_itr::operator++ (int)
 }
 
 template <class T>
-typename Vec<T>::random_access_itr Vec<T>::random_access_itr::operator-- ()
+typename Vec<T>::random_access_itr& Vec<T>::random_access_itr::operator-- ()
 {
 	--ptr;
 	return *this;
@@ -144,24 +189,16 @@ T& Vec<T>::random_access_itr::operator[] (const size_t n)
 	return *(ptr + n);
 }
 
-/*
 template <class T>
-const T& Vec<T>::random_access_itr::operator[] (const size_t n) const 
+typename Vec<T>::itr Vec<T>::begin()
 {
-    return *(this + n);
-}
-*/
-
-template <class T>
-typename Vec<T>::r_itr Vec<T>::begin()
-{
-	return r_itr(this->data());
+	return itr(this->data());
 }
 
 template <class T>
-typename Vec<T>::r_itr Vec<T>::end()
+typename Vec<T>::itr Vec<T>::end()
 {
-	return r_itr(this->data() + this->Size());
+	return itr(this->data() + this->Size());
 }
 
 template <class T>

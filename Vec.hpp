@@ -153,6 +153,12 @@ const typename Vec<T>::const_itr Vec<T>::c_begin () const
 	return const_itr(this->data());
 }
 
+template <class T>
+const typename Vec<T>::const_iterator Vec<T>::c_end () const 
+{
+	return const_itr(this->data() + this->Size());
+}
+
 /*----------------------------------random_access_itr-----------------------------------------*/
 
 template <class T>

@@ -159,7 +159,7 @@ enum { BITCOUNT = (sizeof(size_t) * 8) };
 
 
 //specialization of Vec for the type bool.
-//line 402 in Vec.hpp
+//line 718 in Vec.hpp
 template <>
 class Vec<bool>
 {

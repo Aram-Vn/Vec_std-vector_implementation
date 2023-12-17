@@ -37,9 +37,119 @@ typename Vec<T>::const_iterator& Vec<T>::const_iterator::operator++ ()
 template <class T>
 typename Vec<T>::const_iterator Vec<T>::const_iterator::operator++ (int)
 {
-	
+	const_iterator tmp = *this;
+	++ptr;
+	return tmp;
 }
 
+template <class T>
+typename Vec<T>::const_iterator& Vec<T>::const_iterator::operator-- () 
+{
+	--ptr;
+	return *this;
+}
+
+template <class T>
+typename Vec<T>::const_iterator Vec<T>::const_iterator::operator-- (int)
+{
+	const_iterator tmp = *this;
+	--ptr;
+	return tmp;
+}
+
+template <class T>
+typename Vec<T>::const_iterator Vec<T>::const_iterator::operator+ (const int n) const
+{
+	const_iterator tmp = *this;
+
+	for (int i = 0; i < n; ++i) {
+		++tmp.ptr;
+	}
+
+	return tmp;
+}
+
+template <class T>
+typename Vec<T>::const_iterator Vec<T>::const_iterator::operator- (const int n) const
+{
+	const_iterator tmp = *this;
+
+	for (int i = 0; i < n; ++i) {
+		--tmp.ptr;
+	}
+
+	return tmp;
+}
+
+
+template <class T> 
+typename Vec<T>::const_iterator& Vec<T>::const_iterator::operator+= (const int n)
+{
+	for (int i = 0; i < n; ++i) {
+		++this->ptr;
+	}
+
+	return *this;
+}
+
+template <class T>
+typename Vec<T>::const_iterator& Vec<T>::const_iterator::operator-= (const int n)
+{
+	for (int i = 0; i < n; ++i) {
+		--this->ptr;
+	}
+
+	return *this;
+}
+
+template <class T>
+bool Vec<T>::const_iterator::operator== (const const_iterator& other) const
+{
+	return (this->ptr == other.ptr);
+}
+
+template <class T>
+bool Vec<T>::const_iterator::operator!= (const const_iterator& other) const
+{
+	return !(this->ptr == other.ptr);
+}
+
+template <class T>
+bool Vec<T>::const_iterator::operator> (const const_iterator& other) const
+{
+	return (this->ptr > other.ptr);
+}
+
+
+template <class T>
+bool Vec<T>::const_iterator::operator< (const const_iterator& other) const
+{
+	return (this->ptr < other.ptr);
+}
+
+template <class T>
+bool Vec<T>::const_iterator::operator>= (const const_iterator& other) const
+{
+	return !(this->ptr < other.ptr);
+}
+
+template <class T>
+bool Vec<T>::const_iterator::operator<= (const const_iterator& other) const
+{ 
+	return !(this->ptr > other.ptr);
+}
+
+template <class T>
+const T& Vec<T>::const_iterator::operator[] (int i) const
+{
+	return *(ptr + i);
+}
+
+template <class T>
+const typename Vec<T>::const_itr Vec<T>::c_begin () const
+{
+	return const_itr(this->data());
+}
 
 /*----------------------------------random_access_itr-----------------------------------------*/
 

@@ -15,31 +15,31 @@ public:
 		const_iterator(); //
 		const_iterator(const T* ptr1); //
 
-		const_iterator& operator= (const const_iterator& other);
+		const_iterator& operator= (const const_iterator& other); //
 
-		const T& operator* () const;
-		const T* operator-> () const;
+		const T& operator* () const; //
+		const T* operator-> () const; //
 
-		const_iterator& operator++ ();
-		const_iterator operator++ (int);
+		const_iterator& operator++ (); // 
+		const_iterator operator++ (int); //
 
-		const_iterator& operator-- ();
-		const_iterator operator-- (int);
+		const_iterator& operator-- (); //
+		const_iterator operator-- (int); //
 
-		const_iterator operator+ (const int n) const; 
-		const_iterator operator- (const int n) const;
+		const_iterator operator+ (const int n) const; //
+		const_iterator operator- (const int n) const; //
 
-		const_iterator& operator+= (const int n);
-		const_iterator& operator-= (const int n);
+		const_iterator& operator+= (const int n); //
+		const_iterator& operator-= (const int n); //
 
-		bool operator== (const const_iterator& other) const;
-		bool operator!= (const const_iterator& other) const;
-		bool operator> (const const_iterator& other) const;
-		bool operator< (const const_iterator& other) const;
-		bool operator>= (const const_iterator& other) const;
-		bool operator<= (const const_iterator& other) const;
+		bool operator== (const const_iterator& other) const; //
+		bool operator!= (const const_iterator& other) const; //
+		bool operator> (const const_iterator& other) const; //
+		bool operator< (const const_iterator& other) const; //
+		bool operator>= (const const_iterator& other) const; //
+		bool operator<= (const const_iterator& other) const; //
 
-		const T& operator[] (int i) const;
+		const T& operator[] (int i) const; //
 
 	private:
 		T* ptr;
@@ -93,8 +93,8 @@ public:
 
 public:
 	using itr = random_access_itr;
-	itr begin();
-	itr end();
+	itr begin(); //
+	itr end(); //
 
 public:
 	Vec(); // defolt constructor

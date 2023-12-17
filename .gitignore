@@ -1,5 +1,5 @@
 # Ignore everything
-*
+*.out
 
 # Allow specific files
 !Vec_declaration.h
@@ -7,3 +7,5 @@
 !main.cpp
 !Vec.hpp
 !.gitignore
+
+

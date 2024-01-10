@@ -1,11 +1,5 @@
-# Ignore everything
-*.out
-
-# Allow specific files
-!Vec_declaration.h
-!README.md
-!main.cpp
-!Vec.hpp
-!.gitignore
-
-
+build/
+.cache/
+compile_commands.json
+/src/*.out
+/src/*.cpp

@@ -44,6 +44,10 @@ public:
     private:
         T* ptr;
     };
+    // for const Vec obj
+    using const_itr = const_iterator; // Alias for const_iterator
+    const const_itr c_begin() const;  // Returns a const_iterator pointing to the first element
+    const const_itr c_end() const;    // Returns a const_iterator pointing one past the last element
 
 public:
     class random_access_itr // nested random access iterator for Vec class
@@ -83,17 +87,10 @@ public:
     };
 
 public:
-    // Iterators
-
-    // for const Vec obj
-    using const_itr = const_iterator; //
-    const const_itr c_begin() const;  //
-    const const_itr c_end() const;    //
-
     // for nonconst Vec obj
-    using itr = random_access_itr;
-    itr begin(); //
-    itr end();   //
+    using itr = random_access_itr; // Alias for non-const Vec obj
+    itr begin();                   // Returns an iterator pointing to the first element
+    itr end();                     // Returns an iterator pointing one past the last element
 
 public:
     // Member functions
@@ -113,10 +110,11 @@ public:
 
 public:
     // Element access
-    T& at(int ind) const;               // Returns a reference to the element at position ind in the vector.
-    T& operator[](long long ind) const; // subscript operator overload
-    T& front() const;                   // Returns a reference to the first element in the Vec
-    T& back() const;                    // Returns a reference to the last element in the vector
+    T& at(int ind) const;                     // Returns a reference to the element at position ind in the vector.
+    const T& operator[](long long ind) const; // subscript operator overload for const vec objects
+    T& operator[](long long ind);             // subscript operator overload
+    T& front() const;                         // Returns a reference to the first element in the Vec
+    T& back() const;                          // Returns a reference to the last element in the vector
     T* data() noexcept; // Returns a direct pointer to the memory array used internally by the vector to store its owned
                         // elements.
     const T* data() const noexcept; /*(for const objects) Returns a direct pointer to the memory array used

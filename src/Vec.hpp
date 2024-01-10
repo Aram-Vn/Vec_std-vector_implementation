@@ -382,7 +382,7 @@ Vec<T>::Vec(Vec&& other) noexcept :
 }
 
 template <class T>
-T& Vec<T>::operator[](long long ind) const
+const T& Vec<T>::operator[](long long ind) const
 {
 	if(m_ptr == nullptr){
 		std::cout << "for[]\nnullptr" << std::endl;
@@ -396,6 +396,26 @@ T& Vec<T>::operator[](long long ind) const
 		exit(0);
 	}
 	
+}
+
+template <class T>
+T& Vec<T>::operator[](long long ind)
+{
+    if (m_ptr == nullptr)
+    {
+        std::cout << "for[]\nnullptr" << std::endl;
+        exit(0);
+    }
+
+    if (ind >= 0 && ind < m_size)
+    {
+        return *(m_ptr + ind);
+    }
+    else
+    {
+        std::cout << "in Vec[ind] ind must be >=0 && < size" << std::endl;
+        exit(0);
+    }
 }
 
 template <class T>
@@ -524,7 +544,6 @@ T& Vec<T>::front() const
 	} else {
 		std::cout << "(front)\nnullptr" << std::endl;
 	}
-
 }
 
 template <class T>

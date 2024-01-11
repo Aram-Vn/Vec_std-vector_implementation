@@ -115,10 +115,9 @@ public:
     T& operator[](long long ind);             // subscript operator overload
     T& front() const;                         // Returns a reference to the first element in the Vec
     T& back() const;                          // Returns a reference to the last element in the vector
-    T* data() noexcept; // Returns a direct pointer to the memory array used internally by the vector to store its owned
-                        // elements.
-    const T* data() const noexcept; /*(for const objects) Returns a direct pointer to the memory array used
-                                    internally by the vector to store its owned elements.*/
+    T* data() noexcept;                       // Returns a direct pointer to the memory array used internally by the vector to store its owned elements.
+    const T* data() const noexcept;           /*(for const objects) Returns a direct pointer to the memory array used
+                                              internally by the vector to store its owned elements.*/
 
     // Capacity
     bool Empty();                  // return true if empty
@@ -132,7 +131,7 @@ public:
     void clear();                       // Removes all elements from the vector, leaving the container with a size of 0.
     void insert(int ind, const T& val); // inserts the element(val) at given ind, increasing size by 1
 
-    template <typename... Args> // Inserts an element constructed in place into the vector at a specified position(ind).
+    template <typename... Args>            // Inserts an element constructed in place into the vector at a specified position(ind).
     void emplace(int ind, Args&&... args); // The arguments args... are forwarded to the constructor as
                                            // std::forward<Args>(args)...
 
@@ -146,7 +145,7 @@ public:
     void pop_back(); // Removes the last element in the vector, redusing m_size by 1,
 
     void swap(Vec& other); /*Exchanges the content of the container by the content of other, which is another Vec object
-               of the same type. Sizes may differ.*/
+                            of the same type. Sizes may differ.*/
 private:
     void realloc(size_t new_cap = 0); // reallocates memory, if no argument passed doubles the cap, else cap is equal to
                                       // new_cap
@@ -160,20 +159,17 @@ private:
 template <class T>
 std::ostream& operator<<(std::ostream& os, const Vec<T>& obj);
 
-// for holding amount of bits of size_t( Vec<bool> )
+
 enum
 {
-    BITCOUNT = (sizeof(size_t) * 8)
+    BITCOUNT = (sizeof(size_t) * 8) // for holding amount of bits of size_t( Vec<bool> )
 };
 
-// specialization of Vec for the type bool.
-// line 718 in Vec.hpp
 template <>
-class Vec<bool>
+class Vec<bool> // specialization of Vec for the type bool.
 {
 public:
-    // nested class for handling referance
-    class reference
+    class reference // nested class for handling referance
     {
     public:
         reference(size_t* ptr1, size_t index);

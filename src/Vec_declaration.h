@@ -120,7 +120,7 @@ public:
                                               internally by the vector to store its owned elements.*/
 
     // Capacity
-    bool Empty();                  // return true if empty
+    bool Empty() const;                  // return true if empty
     size_t Size() const;           // returns m_size
     size_t Max_size() const;       // Returns the maximum number of elements that the vector can hold
     void Reserve(size_t new_size); // make m_cap ecual to new_size if new_size > m_cap

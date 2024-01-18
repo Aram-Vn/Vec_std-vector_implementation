@@ -475,7 +475,7 @@ size_t Vec<T>::Capacity() const
 }	
 
 template <class T>
-bool Vec<T>::Empty() 
+bool Vec<T>::Empty() const
 {
 	return m_size == 0;
 }
